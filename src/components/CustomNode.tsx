@@ -22,10 +22,10 @@ const CustomNode = ({ data }) => {
 
     return (
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "6px" }}>
-            <Handle type="target" position="left" style={{ borderRadius: 0 }} />
-            {iconUrl  && <img src={iconUrl} style={{ width: '50px', borderRadius: "4px" }} />}
-            <div style={{ marginTop: '5px', fontSize: "12px" }}>{data.label}</div>
-            <Handle type="source" position="right" style={{ borderRadius: 0 }} />
+            <Handle type="target" position="left" style={{ borderRadius: 0, opacity: "0" }} />
+            {iconUrl && <img src={iconUrl} style={{ width: '50px', borderRadius: "4px" }} />}
+            <div style={{ fontSize: "12px" }}>{data.label}</div>
+            <Handle type="source" position="right" style={{ borderRadius: 0, opacity: "0" }} />
         </div>
     );
 };
