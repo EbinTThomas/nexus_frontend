@@ -1,4 +1,5 @@
-import Link from "next/link";
+import Header from "@/components/common/header";
+import SideNav from "@/components/common/side-nav";
 
 interface ProjectLayoutProps {
     children: React.ReactNode,
@@ -9,11 +10,12 @@ interface ProjectLayoutProps {
 
 export default function ProjectLayout(props: ProjectLayoutProps) {
     return (
-        <div className="project-layout">
-            <div className="project-header">
-                <Link href={`/projects/${props.params.projectId}/scans`}>Scans</Link>
+        <>
+            <Header />
+            <SideNav />
+            <div className="pl-[304px] pt-[104px] pr-[24px] pb-[24px]">
+                {props.children}
             </div>
-            {props.children}
-        </div>
+        </>
     )
 }

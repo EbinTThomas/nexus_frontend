@@ -1,5 +1,5 @@
-import axios from "@/api/axios"
-import Link from "next/link";
+import { DataTableDemo } from "@/components/common/data-table-demo";
+import * as actions from "@/actions/index";
 
 interface ScansInterface {
     params: {
@@ -8,20 +8,8 @@ interface ScansInterface {
 }
 
 export default async function Scans(props: ScansInterface) {
-    const scans = await axios.get(`/scans`)
-    const renderedScans = scans.data.map((scan) => {
-        return (
-            <li>
-                <Link href={`/projects/${props.params.projectId}/scans/${scan.id}`}>{scan.name}</Link>
-            </li>
-        )
-    })
+    const scans = await actions.getScans(props.params.projectId);
     return (
-        <div>
-            <h1>Scans</h1>
-            <ul>
-                {renderedScans}
-            </ul>
-        </div>
+        <DataTableDemo data={scans} />
     )
 }

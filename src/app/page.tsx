@@ -1,4 +1,8 @@
-export default function Home() {
+import { axiosPrivate } from "@/api/axios";
+import { cookies } from "next/headers";
+
+export default async function Home() {
+
   return (
     <div>
       Landing page
