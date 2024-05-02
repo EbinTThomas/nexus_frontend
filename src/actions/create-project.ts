@@ -4,15 +4,12 @@ import axios from "@/api/axios";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
-interface CreateProjectProps {
-    formData: FormData
-}
-
-export async function createProject(props: CreateProjectProps) {
+export async function createProject(formData: object) {
     const access = cookies().get("access");
+    console.log(formData)
     const response = await axios.post(
         `/api/v1/projects/`,
-        props.formData,
+        formData,
         {
             headers: {
                 "Authorization": `Bearer ${access?.value}`

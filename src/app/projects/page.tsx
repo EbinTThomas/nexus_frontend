@@ -1,25 +1,18 @@
 import axios from "@/api/axios";
 import Link from "next/link";
 import * as actions from "@/actions/index";
+import { DataTableProjects } from "@/components/common/data-table-projects";
 
 export default async function Projects() {
     const projects = await actions.getProjects();
 
-    const renderedProjects = projects.map((project) => {
-        return (
-            <Link href={`/projects/${project.id}`} key={project.id}>
-                {project.name}
-            </Link>
-        )
-    });
-
     return (
-        <div>
-            <Link href="/projects/create">New Project</Link>
+        <div className="px-[15vw] pt-[32px]">
+            <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">
+                Projects
+            </h3>
             {
-                renderedProjects.length > 0
-                    ? renderedProjects
-                    : <>Nothing to show</>
+                <DataTableProjects data={projects} />
             }
 
         </div>

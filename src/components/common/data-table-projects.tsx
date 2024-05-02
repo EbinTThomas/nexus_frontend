@@ -41,7 +41,7 @@ import { IoReload } from "react-icons/io5";
 import { LuView } from "react-icons/lu";
 import { IoAdd } from "react-icons/io5";
 
-export type Scans = {
+export type Projects = {
     id: string
     name: string,
     provider: string,
@@ -49,7 +49,7 @@ export type Scans = {
     date: string
 }
 
-export const columns: ColumnDef<Scans>[] = [
+export const columns: ColumnDef<Projects>[] = [
     {
         id: "select",
         header: ({ table }) => (
@@ -74,89 +74,21 @@ export const columns: ColumnDef<Scans>[] = [
     },
     {
         accessorKey: "id",
-        header: "Scan ID",
-        cell: ({ row }) => {
-            const pathName = usePathname();
-            const projectId = pathName.split('/')[2];
-            return (
-                <Link href={`/projects/${projectId}/scans/${row.getValue("id")}/`}>{row.getValue("id")}</Link>
-            )
-        }
+        header: "Project ID",
+        cell: ({ row }) => (
+            <Link href={`/projects/${row.getValue("id")}`}>{row.getValue("id")}</Link>
+        ),
     },
     {
         accessorKey: "name",
-        header: "Scan Name",
+        header: "Project Name",
         cell: ({ row }) => (
             <div className="capitalize">{row.getValue("name")}</div>
         ),
     },
-    {
-        accessorKey: "provider",
-        header: ({ column }) => {
-            return (
-                <Button
-                    variant="ghost"
-                    onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-                >
-                    Provider
-                    <ArrowUpDown className="ml-2 h-4 w-4" />
-                </Button>
-            )
-        },
-        cell: ({ row }) => <div className="pl-4">{row.getValue("provider")}</div>,
-    },
-    {
-        accessorKey: "status",
-        header: () => <div className="">Status</div>,
-        cell: ({ row }) => <div className="font-medium">{row.getValue("status")}</div>,
-    },
-    {
-        accessorKey: "date",
-        header: () => <div className="">Date</div>,
-        cell: ({ row }) => <div className="font-medium">{row.getValue("date")}</div>,
-    },
-    {
-        id: "actions",
-        enableHiding: false,
-        cell: ({ row }) => {
-            const pathName = usePathname();
-            const projectId = pathName.split('/')[2];
-            return (
-                <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" className="h-8 w-8 p-0">
-                            <span className="sr-only">Open menu</span>
-                            <MoreHorizontal className="h-4 w-4" />
-                        </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end" className="w-[200px]">
-                        <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                        {/* <DropdownMenuItem
-                            onClick={() => navigator.clipboard.writeText(payment.id)}
-                        >
-                            Copy payment ID
-                        </DropdownMenuItem>
-                        <DropdownMenuSeparator /> */}
-                        <DropdownMenuItem>
-                            <Link href={`/projects/${projectId}/scans/${row.getValue("id")}/rescan`} className="flex gap-4 items-center">
-                                <IoReload />
-                                Rescan
-                            </Link>
-                        </DropdownMenuItem>
-                        <DropdownMenuItem>
-                            <Link href={`/projects/${projectId}/scans/${row.getValue("id")}`} className="flex gap-4 items-center"   >
-                                <LuView />
-                                View detail
-                            </Link>
-                        </DropdownMenuItem>
-                    </DropdownMenuContent>
-                </DropdownMenu>
-            )
-        },
-    },
 ]
 
-export function DataTableDemo({ data }: { data: Scans[] }) {
+export function DataTableProjects({ data }: { data: Projects[] }) {
     const [sorting, setSorting] = React.useState<SortingState>([])
     const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
         []
@@ -192,7 +124,7 @@ export function DataTableDemo({ data }: { data: Scans[] }) {
         <div className="w-full">
             <div className="flex items-center py-4 justify-between">
                 <Input
-                    placeholder="Filter scans..."
+                    placeholder="Filter projects..."
                     value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
                     onChange={(event) =>
                         table.getColumn("name")?.setFilterValue(event.target.value)
@@ -226,9 +158,9 @@ export function DataTableDemo({ data }: { data: Scans[] }) {
                                 })}
                         </DropdownMenuContent>
                     </DropdownMenu>
-                    <Button className="flex gap-2" onClick={() => router.push(`/projects/${projectId}/scans/create`)}>
+                    <Button className="flex gap-2" onClick={() => router.push(`/projects/create`)}>
                         <IoAdd size={18} />
-                        New Scan
+                        New Project
                     </Button>
                 </div>
             </div>

@@ -109,54 +109,10 @@ export const columns: ColumnDef<Scans>[] = [
         accessorKey: "status",
         header: () => <div className="">Status</div>,
         cell: ({ row }) => <div className="font-medium">{row.getValue("status")}</div>,
-    },
-    {
-        accessorKey: "date",
-        header: () => <div className="">Date</div>,
-        cell: ({ row }) => <div className="font-medium">{row.getValue("date")}</div>,
-    },
-    {
-        id: "actions",
-        enableHiding: false,
-        cell: ({ row }) => {
-            const pathName = usePathname();
-            const projectId = pathName.split('/')[2];
-            return (
-                <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" className="h-8 w-8 p-0">
-                            <span className="sr-only">Open menu</span>
-                            <MoreHorizontal className="h-4 w-4" />
-                        </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end" className="w-[200px]">
-                        <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                        {/* <DropdownMenuItem
-                            onClick={() => navigator.clipboard.writeText(payment.id)}
-                        >
-                            Copy payment ID
-                        </DropdownMenuItem>
-                        <DropdownMenuSeparator /> */}
-                        <DropdownMenuItem>
-                            <Link href={`/projects/${projectId}/scans/${row.getValue("id")}/rescan`} className="flex gap-4 items-center">
-                                <IoReload />
-                                Rescan
-                            </Link>
-                        </DropdownMenuItem>
-                        <DropdownMenuItem>
-                            <Link href={`/projects/${projectId}/scans/${row.getValue("id")}`} className="flex gap-4 items-center"   >
-                                <LuView />
-                                View detail
-                            </Link>
-                        </DropdownMenuItem>
-                    </DropdownMenuContent>
-                </DropdownMenu>
-            )
-        },
-    },
+    }
 ]
 
-export function DataTableDemo({ data }: { data: Scans[] }) {
+export function DataTableScans({ data }: { data: Scans[] }) {
     const [sorting, setSorting] = React.useState<SortingState>([])
     const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
         []

@@ -7,13 +7,14 @@ export async function getScans(projectId: string) {
     try {
         const access = cookies().get("access");
         const response = await axios.get(
-            `/scans`,
+            `/api/v1/scans/${projectId}`,
             {
                 headers: {
-                    "Authorization": `Bearer ${access}`
+                    "Authorization": `Bearer ${access?.value}`
                 }
             }
         );
+        console.log(response.data)
         return response.data;
     } catch (error) {
         return error;

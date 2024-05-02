@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input"
@@ -16,25 +16,12 @@ import { AvatarDemo } from '@/components/avatar-demo';
 import { Loader2 } from "lucide-react"
 import { useRouter } from 'next/navigation';
 import * as actions from "@/actions/index";
-
-// const owners = [
-//     {
-//         "id": 1,
-//         "name": "Michael Jackson",
-//         "email": "mj@gmail.com",
-//         "img": "https://c4.wallpaperflare.com/wallpaper/687/811/828/michael-jackson-peace-wallpaper-preview.jpg"
-//     },
-//     {
-//         "id": 2,
-//         "name": "John Cena",
-//         "email": "johncena@gmail.com",
-//         "img": "https://deadline.com/wp-content/uploads/2024/01/john-cena-wwe-retiring.jpg"
-//     }
-// ]
+import { Textarea } from "@/components/ui/textarea";
 
 export default function ProjectCreatePage() {
     const [tabIndex, setTabIndex] = useState(0);
     const [projectName, setProjectName] = useState('');
+    const [description, setDescription] = useState('');
     const [owner, setOwner] = useState('');
     const [owners, setOwners] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
@@ -43,21 +30,24 @@ export default function ProjectCreatePage() {
     const handleSubmit = async () => {
         setIsLoading(true);
         try {
-            console.log(projectName, owner)
-            await setTimeout(() => {
-                console.log("Submitted successfully");
-                setIsLoading(false);
-                router.push('/dashboard/scans')
-            }, 5000);
+            // Correctly using setTimeout in an async function
+            const createProjectAction = await actions.createProject.bind(null, {"name": projectName, "owner_id": owner, "description": description});
+            createProjectAction();
+            setIsLoading(false);
         } catch (err) {
-
+            // Handle errors, e.g., log to console or show a message to the user
+            console.error("Failed to submit:", err);
+            setIsLoading(false);
         }
     }
 
     const fetchOwners = async () => {
-        const getUserAction = await actions.getUser.bind(null);
-        const ownerData = getUserAction();
-        setOwners([ownerData]);
+        try {
+            const ownerData = await actions.getUser();
+            setOwners([ownerData]);
+        } catch (error) {
+            console.error("Failed to fetch owners:", error);
+        }
     }
 
     useEffect(() => {
@@ -82,6 +72,17 @@ export default function ProjectCreatePage() {
                 </TabsContent>
 
                 <TabsContent value="1">
+                    <h2 className="scroll-m-20 pb-8 text-3xl font-semibold tracking-tight first:mt-0">
+                        Describe your project
+                    </h2>
+                    <Label className="text-xs pb-[4px] block">Project Description</Label>
+                    <Textarea id="description" placeholder="It's a project ..." className="py-[24px]" onChange={(e) => setDescription(e.target.value)} value={description} />
+                    <div className="btn_wrap pt-8 flex gap-[12px]">
+                        <Button onClick={() => setTabIndex(tabIndex + 1)} className="px-[32px] py-[24px]" disabled={description === ''}>Continue</Button>
+                    </div>
+                </TabsContent>
+
+                <TabsContent value="2">
                     <h2 className="scroll-m-20 pb-8 text-3xl font-semibold tracking-tight first:mt-0">
                         Now select the ownership of the project
                     </h2>
