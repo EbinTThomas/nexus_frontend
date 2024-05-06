@@ -14,37 +14,55 @@ interface ScanDetailProps {
 
 export default async function ScanDetail(props: ScanDetailProps) {
     const scanDetail = await actions.getScanDetail(props.params.scanId);
-    let scanResult = {};
+    let scanResult = [];
 
-    if (scanDetail[0].state === "completed") {
+    if (scanDetail.state === "completed") {
         scanResult = await actions.getScanResult(props.params.scanId);
-        console.log(scanResult);
     }
 
     return (
         <div>
-            <DataTableDemo data={scanDetail} />
+            {scanDetail.name}
             {
-                scanDetail[0].state === "pending" &&
+                scanDetail.state === "pending" &&
                 <StartScanButton scanId={props.params.scanId} btnValue={"Start Scan"} />
             }
             {
-                scanDetail[0].state === "failed" &&
+                scanDetail.state === "failed" &&
                 <>failed</>
             }
             {
-                scanDetail[0].state === "initiated" &&
+                scanDetail.state === "initiated" &&
                 <>Scanning processing...</>
             }
             {
-                scanDetail[0].state === "completed" &&
+                scanDetail.state === "completed" &&
                 <>
                     <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">
                         Scan Result
                     </h3>
                     <StartScanButton scanId={props.params.scanId} btnValue={"Rescan"} />
                     <Link href={`/projects/${props.params.projectId}/scans/${props.params.scanId}/inspect`}>Inspect</Link>
-                    <DataTableScans data={scanDetail} />
+                    {/* {scanResult.id}
+                    {scanResult.scan_id}
+                    {scanResult.assigned_permissions.map((permission) => (
+                        { permission }
+                    ))} */}
+                    {/* {scanResult.vulnerable_permissions.map((item) => (
+                        { item }
+                    ))}
+                    {scanResult.overly_permissive_services.map((item) => (
+                        { item }
+                    ))}
+                    {scanResult.exploitation_details.map((item) => (
+                        { item }
+                    ))}
+                    {scanResult.post_exploitation_activities.map((item) => (
+                        { item }
+                    ))}
+                    {scanResult.assessment_phase_details.map((item) => (
+                        { item }
+                    ))} */}
                 </>
             }
         </div>

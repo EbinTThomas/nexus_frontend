@@ -33,13 +33,10 @@ export default function SignUpPage() {
         e.preventDefault();
         try {
             setIsLoading(true);
-            const response = await axios.post('/api/v1/users/', formData);
 
-            if (response.status !== 200) {
-                setErrMsg(response.data.message);
-            } else {
-                setErrMsg(null);
-                router.push('/auth/login');
+            const result = await actions.signup(formData);
+            if (result.success) {
+                window.location.href = result.redirectTo;
             }
         } catch (error) {
             setErrMsg(error.message);
@@ -159,7 +156,7 @@ export default function SignUpPage() {
                                             Please wait
                                             <FiLoader />
                                         </>
-                                        : 'Sign in'
+                                        : 'Sign up'
                                 }
 
                             </button>

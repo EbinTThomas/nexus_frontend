@@ -7,6 +7,7 @@ import { IoSettingsOutline } from "react-icons/io5";
 import { IoIosHelpCircleOutline } from "react-icons/io";
 import { FaPowerOff } from "react-icons/fa6";
 import { IoGridOutline } from "react-icons/io5";
+import { GoStack } from "react-icons/go";
 
 import { usePathname } from "next/navigation";
 import Link from "next/link";
@@ -16,8 +17,8 @@ import * as actions from "@/actions/index";
 import { Button } from "../ui/button";
 
 export default function SideNav() {
-    const pathName = usePathname();
-    const projectId = pathName.split('/')[2];
+    const pathname = usePathname();
+    const projectId = pathname.split('/')[2];
 
     const logoutAction = () => actions.logout();
 
@@ -27,18 +28,24 @@ export default function SideNav() {
             "items": [
                 {
                     "label": "Project Overview",
-                    "icon": <IoGridOutline size={24} color="#536682" />,
+                    "icon": <IoGridOutline size={24} />,
                     "path": `/projects/${projectId}`
                 },
                 {
                     "label": "Scans",
-                    "icon": <AiOutlineSecurityScan size={24} color="#536682" />,
+                    "icon": <AiOutlineSecurityScan size={24} />,
                     "path": `/projects/${projectId}/scans`
                 },
                 {
                     "label": "Documentation",
-                    "icon": <IoDocumentAttachOutline size={24} color="#536682" />,
+                    "icon": <IoDocumentAttachOutline size={24} />,
                     "path": `#`
+                },
+                {
+                    "label": "Projects",
+                    "icon": <GoStack size={24} />
+                    ,
+                    "path": `/projects`
                 }
             ]
         }
@@ -47,12 +54,12 @@ export default function SideNav() {
     const bottomMenuMapping = [
         {
             "label": "Settings",
-            "icon": <IoSettingsOutline size={24} color="#536682" />,
+            "icon": <IoSettingsOutline size={24} />,
             "path": `#`
         },
         {
             "label": "Help",
-            "icon": <IoIosHelpCircleOutline size={24} color="#536682" />,
+            "icon": <IoIosHelpCircleOutline size={24} />,
             "path": `#`
         },
     ]
@@ -78,7 +85,7 @@ export default function SideNav() {
                                 {
                                     menu.items.map((item) => (
                                         <li key={item.label} className="mb-4">
-                                            <Link href={item.path} className="flex gap-3 items-center block w-full text-[0.875rem] text-[#536682] text-medium">{item.icon}{item.label}</Link>
+                                            <Link href={item.path} className={`flex gap-3 items-center block w-full text-[0.875rem] ${pathname === item.path ? "text-[#4f46e5]" : "text-[#536682]"} text-medium`}>{item.icon}{item.label}</Link>
                                         </li>
                                     ))
                                 }

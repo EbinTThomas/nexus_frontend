@@ -1,4 +1,3 @@
-export { setCookies } from "./set-cookies";
 export { getProjects } from "./get-projects";
 export { getCurrentProject } from "./get-current-project";
 export { getScans } from "./get-scans";
@@ -9,3 +8,5 @@ export { getUser } from "./get-user";
 export { getScanDetail } from "./get-scan-detail";
 export { startScan } from "./start-scan";
 export { getScanResult } from "./get-scan-result";
+export { login } from "./auth/login";
+export { signup } from "./auth/signup";

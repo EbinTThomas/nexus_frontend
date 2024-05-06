@@ -7,7 +7,7 @@ export async function getScans(projectId: string) {
     try {
         const access = cookies().get("access");
         const response = await axios.get(
-            `/api/v1/scans/${projectId}`,
+            `/api/v1/scans/project/${projectId}`,
             {
                 headers: {
                     "Authorization": `Bearer ${access?.value}`
@@ -17,6 +17,10 @@ export async function getScans(projectId: string) {
         console.log(response.data)
         return response.data;
     } catch (error) {
-        return error;
+        if (error.response) {
+            throw new Error(`${error.response.data.detail || 'Unknown error'}`);
+        } else {
+            throw new Error("No server response");
+        }
     }
 }

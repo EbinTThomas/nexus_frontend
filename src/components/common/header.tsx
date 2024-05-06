@@ -1,9 +1,8 @@
-import { ComboboxDemo } from "./combo-box-demo";
-
+import ProjectSwitch from "./project-switch";
 
 export default function Header() {
     return (
-        <header className="fixed top-0 right-0 w-full pl-[304px] pr-[24px] pt-4 pb-4 border-b border-[#536682]-100 flex justify-between items-center bg-[#fff] bg-opacity-15 backdrop-blur-[5px] z-[99]">
+        <header className="fixed top-0 right-0 w-full pl-[304px] pr-[24px] pt-4 pb-4 border-b border-[#536682]-100 flex justify-between items-center bg-[#fff] bg-opacity-15 backdrop-blur-[5px] z-[1]">
             <div>
                 <h3 className="scroll-m-20 text-2xl font-medium tracking-tight">
                     Project Overview
@@ -12,7 +11,7 @@ export default function Header() {
                     Here's the overview of your project
                 </p>
             </div>
-            {/* <ComboboxDemo /> */}
+            <ProjectSwitch/>
         </header>
     )
 }

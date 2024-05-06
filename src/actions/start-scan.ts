@@ -20,7 +20,10 @@ export async function startScan(scanId: string) {
         );
         return response.data;
     } catch (error) {
-        console.error("Error starting scan:", error);
-        throw error;
+        if (error.response) {
+            throw new Error(`${error.response.data.detail || 'Unknown error'}`);
+        } else {
+            throw new Error("No server response");
+        }
     }
 }

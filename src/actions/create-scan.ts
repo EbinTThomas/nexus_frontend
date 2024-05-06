@@ -9,16 +9,24 @@ interface CreateScanProps {
 }
 
 export async function createScan(props: CreateScanProps) {
-    const access = cookies().get("access");
-    console.log(props.formData);
-    const response = await axios.post(
-        `/api/v1/scans/`,
-        props.formData,
-        {
-            headers: {
-                "Authorization": `Bearer ${access?.value}`
+    try {
+        const access = cookies().get("access");
+        const response = await axios.post(
+            `/api/v1/scans/`,
+            props.formData,
+            {
+                headers: {
+                    "Authorization": `Bearer ${access?.value}`
+                }
             }
+        );
+        return { success: true, redirectTo: `/projects/${props.formData.project_id}/scans/${response.data.id}` };
+    }
+    catch (error) {
+        if (error.response) {
+            throw new Error(`${error.response.data.detail || 'Unknown error'}`);
+        } else {
+            throw new Error("No server response");
         }
-    );
-    redirect(`/projects/${props.projectId}/scans/${response.data.id}`);
+    }
 }

@@ -79,9 +79,13 @@ export default function ScanCreatePage(props: ScanCreatePageProps) {
                 },
                 "project_id": props.params.projectId
             };
-            await actions.createScan({ formData });
-        } catch (err) {
-            console.error("Error submitting form:", err);
+            const result = await actions.createScan({ formData });
+            if (result.success) {
+                window.location.href = result.redirectTo;
+            }
+        } catch (error) {
+            console.log(error)
+        } finally {
             setIsLoading(false);
         }
     };

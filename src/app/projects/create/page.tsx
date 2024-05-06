@@ -25,17 +25,21 @@ export default function ProjectCreatePage() {
     const [owner, setOwner] = useState('');
     const [owners, setOwners] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
-    const router = useRouter();
 
     const handleSubmit = async () => {
         setIsLoading(true);
         try {
-            // Correctly using setTimeout in an async function
-            const createProjectAction = await actions.createProject.bind(null, {"name": projectName, "owner_id": owner, "description": description});
-            createProjectAction();
+            const formData = {
+                "name": projectName,
+                "owner_id": owner,
+                "description": description
+            };
+            const result = await actions.createProject(formData);
+            if (result.success) {
+                window.location.href = result.redirectTo;
+            }
             setIsLoading(false);
         } catch (err) {
-            // Handle errors, e.g., log to console or show a message to the user
             console.error("Failed to submit:", err);
             setIsLoading(false);
         }
@@ -55,9 +59,9 @@ export default function ProjectCreatePage() {
     }, [])
 
     return (
-        <div className="create_project_container">
+        <div className="create_project_container px-[15vw] pt-[32px]">
             <h3 className="text-xl text-muted-foreground pb-6">
-                Create a project (Step {tabIndex + 1} of 2)
+                Create a project (Step {tabIndex + 1} of 3)
             </h3>
             <Tabs className="w-[400px]" value={`${tabIndex}`}>
                 <TabsContent value="0">
@@ -99,7 +103,6 @@ export default function ProjectCreatePage() {
                                             <AvatarDemo
                                                 imgSrc={ownerItem.img}
                                             />
-                                            {console.log(ownerItem)}
                                             <div className="flex flex-col gap-[4px] text-left">
                                                 <div className="font-semibold">{ownerItem.organisation}</div>
                                                 <div className="text-xs">{ownerItem.email}</div>

@@ -52,7 +52,110 @@ export default function BasicFlow() {
   // Fetch graph data and set nodes and edges
   const fetchGraphData = async () => {
     try {
-      const { data } = await axios.get('/graph');
+      // const { data } = await axios.get('/graph');
+      const data = {
+        "nodes": [
+          {
+            "id": "1",
+            "data": {
+              "label": "Internet"
+            },
+            "type": "custom"
+          },
+          {
+            "id": "2",
+            "data": {
+              "label": "IAM User"
+            },
+            "type": "custom"
+          },
+          {
+            "id": "3",
+            "data": {
+              "label": "Administrator"
+            },
+            "type": "custom"
+          },
+          {
+            "id": "4",
+            "data": {
+              "label": "All Services"
+            },
+            "type": "custom"
+          },
+          {
+            "id": "7",
+            "data": {
+              "label": "S3 Bucket"
+            },
+            "type": "custom"
+          },
+          {
+            "id": "8",
+            "data": {
+              "label": "Database"
+            },
+            "type": "custom"
+          },
+          {
+            "id": "9",
+            "data": {
+              "label": "Network Infrastructure"
+            },
+            "type": "custom"
+          }
+        ],
+        "edges": [
+          {
+            "id": "2",
+            "source": "1",
+            "target": "2"
+          },
+          {
+            "id": "3",
+            "source": "3",
+            "target": "4",
+            "label": "Gain Full Control"
+          },
+          {
+            "id": "8",
+            "source": "2",
+            "target": "7",
+            "label": "Access Cloud Storage"
+          },
+          {
+            "id": "9",
+            "source": "2",
+            "target": "8",
+            "label": "Access Database"
+          },
+          {
+            "id": "10",
+            "source": "2",
+            "target": "9",
+            "label": "Infiltrate Network"
+          },
+          {
+            "id": "11",
+            "source": "7",
+            "target": "4",
+            "label": "Exfiltrate Sensitive Data"
+          },
+          {
+            "id": "12",
+            "source": "8",
+            "target": "4",
+            "label": "Extract Database Information"
+          },
+          {
+            "id": "13",
+            "source": "9",
+            "target": "3",
+            "label": "Escalate to Admin via Network"
+          }
+        ]
+      }
+
       const layoutedElements = getLayoutedElements(data.nodes, data.edges);
       setNodes(layoutedElements.nodes);
       setEdges(layoutedElements.edges);
@@ -72,7 +175,7 @@ export default function BasicFlow() {
   };
 
   return (
-    <div className="h-[100vh] w-[100%]">
+    <div className="h-[calc(100vh-150px)] w-[100%]">
       <ReactFlowProvider>
         <ReactFlow
           nodes={nodes}

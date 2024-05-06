@@ -1,5 +1,3 @@
-import axios from "@/api/axios";
-import Link from "next/link";
 import * as actions from "@/actions/index";
 import { DataTableProjects } from "@/components/common/data-table-projects";
 
@@ -11,10 +9,7 @@ export default async function Projects() {
             <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">
                 Projects
             </h3>
-            {
-                <DataTableProjects data={projects} />
-            }
-
+            <DataTableProjects data={projects} />
         </div>
     )
 }

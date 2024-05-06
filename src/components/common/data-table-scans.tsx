@@ -40,12 +40,13 @@ import { usePathname, useRouter } from "next/navigation";
 import { IoReload } from "react-icons/io5";
 import { LuView } from "react-icons/lu";
 import { IoAdd } from "react-icons/io5";
+import { Badge } from "../ui/badge"
 
 export type Scans = {
     id: string
     name: string,
     provider: string,
-    status: string,
+    state: string,
     date: string
 }
 
@@ -106,9 +107,9 @@ export const columns: ColumnDef<Scans>[] = [
         cell: ({ row }) => <div className="pl-4">{row.getValue("provider")}</div>,
     },
     {
-        accessorKey: "status",
-        header: () => <div className="">Status</div>,
-        cell: ({ row }) => <div className="font-medium">{row.getValue("status")}</div>,
+        accessorKey: "state",
+        header: () => <div className="">State</div>,
+        cell: ({ row }) => <Badge variant={row.getValue("state") === "failed" ? "destructive" : row.getValue("state") === "pending" ? "secondary" : "primary"}>{row.getValue("state")}</Badge>,
     }
 ]
 

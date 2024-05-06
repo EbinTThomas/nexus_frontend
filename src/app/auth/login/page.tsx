@@ -3,7 +3,6 @@
 import React, { useState, useEffect, ChangeEvent, FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import * as actions from '@/actions/index';
-import axios from '@/api/axios';
 import Link from 'next/link';
 import Image from 'next/image';
 import { FiLoader } from "react-icons/fi";
@@ -33,16 +32,9 @@ export default function LoginPage() {
         try {
             setIsLoading(true);
 
-            const response = await axios.post('/api/v1/auth/token/', formData);
-
-            if (response.status !== 200) {
-                setErrMsg(response.data.message);
-            } else {
-                setErrMsg(null);
-                const access = response.data.access_token;
-                const setCookieAction = actions.setCookies.bind(null, access);
-                setCookieAction();
-                router.push('/projects');
+            const result = await actions.login(formData);
+            if (result.success) {
+                window.location.href = result.redirectTo;
             }
         } catch (error) {
             setErrMsg(error.message);

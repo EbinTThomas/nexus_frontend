@@ -13,6 +13,17 @@ const nextConfig = {
                 permanent: false,
                 destination: "/auth/login",
             },
+            {
+                source: "/auth/:path*",
+                has: [
+                    {
+                        type: "cookie",
+                        key: "access",
+                    },
+                ],
+                permanent: false,
+                destination: "/projects",
+            },
         ];
     },
 };

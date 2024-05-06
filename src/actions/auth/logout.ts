@@ -6,5 +6,5 @@ export async function logout() {
     if (cookies().get('access')) {
         cookies().delete('access');
     }
-    return;
+    return { success: true, redirectTo: '/auth/login' };
 }

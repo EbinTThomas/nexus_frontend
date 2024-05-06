@@ -86,6 +86,13 @@ export const columns: ColumnDef<Projects>[] = [
             <div className="capitalize">{row.getValue("name")}</div>
         ),
     },
+    {
+        accessorKey: "description",
+        header: "Project Description",
+        cell: ({ row }) => (
+            <div className="capitalize">{row.getValue("description")}</div>
+        ),
+    }
 ]
 
 export function DataTableProjects({ data }: { data: Projects[] }) {
