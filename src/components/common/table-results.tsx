@@ -10,7 +10,6 @@ import {
   } from "@/components/ui/table"
   
   export function TableResults({ data }: string[]) {
-    // console.log(data)
     return (
       <Table>
         <TableBody>

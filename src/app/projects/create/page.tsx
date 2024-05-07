@@ -17,6 +17,7 @@ import { Loader2 } from "lucide-react"
 import { useRouter } from 'next/navigation';
 import * as actions from "@/actions/index";
 import { Textarea } from "@/components/ui/textarea";
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 
 export default function ProjectCreatePage() {
     const [tabIndex, setTabIndex] = useState(0);
@@ -59,13 +60,26 @@ export default function ProjectCreatePage() {
     }, [])
 
     return (
-        <div className="create_project_container px-[15vw] pt-[32px]">
+        <div className="create_project_container px-[15vw] pt-[80px]">
+            <div className="mb-8">
+                <Breadcrumb>
+                    <BreadcrumbList>
+                        <BreadcrumbItem>
+                            <BreadcrumbLink href="/projects">Projects</BreadcrumbLink>
+                        </BreadcrumbItem>
+                        <BreadcrumbSeparator />
+                        <BreadcrumbItem>
+                            <BreadcrumbPage>Create Project</BreadcrumbPage>
+                        </BreadcrumbItem>
+                    </BreadcrumbList>
+                </Breadcrumb>
+            </div>
             <h3 className="text-xl text-muted-foreground pb-6">
                 Create a project (Step {tabIndex + 1} of 3)
             </h3>
-            <Tabs className="w-[400px]" value={`${tabIndex}`}>
+            <Tabs className="max-w-[600px]" value={`${tabIndex}`}>
                 <TabsContent value="0">
-                    <h2 className="scroll-m-20 pb-8 text-3xl font-semibold tracking-tight first:mt-0">
+                    <h2 className="scroll-m-20 pb-8 text-5xl font-semibold tracking-tight first:mt-0 leading-none">
                         Let's start with a name for your project
                     </h2>
                     <Label className="text-xs pb-[4px] block">Project name</Label>
@@ -76,18 +90,19 @@ export default function ProjectCreatePage() {
                 </TabsContent>
 
                 <TabsContent value="1">
-                    <h2 className="scroll-m-20 pb-8 text-3xl font-semibold tracking-tight first:mt-0">
+                    <h2 className="scroll-m-20 pb-8 text-5xl font-semibold tracking-tight first:mt-0 leading-none">
                         Describe your project
                     </h2>
                     <Label className="text-xs pb-[4px] block">Project Description</Label>
-                    <Textarea id="description" placeholder="It's a project ..." className="py-[24px]" onChange={(e) => setDescription(e.target.value)} value={description} />
-                    <div className="btn_wrap pt-8 flex gap-[12px]">
+                    <Textarea id="description" placeholder="It's a project ..." className="py-[12px] h-32" onChange={(e) => setDescription(e.target.value)} value={description} />
+                    <div className="btn_wrap pt-8 flex gap-[12px] justify-between">
+                        <Button variant="outline" onClick={() => setTabIndex(tabIndex - 1)} className="px-[32px] py-[24px]">Previous</Button>
                         <Button onClick={() => setTabIndex(tabIndex + 1)} className="px-[32px] py-[24px]" disabled={description === ''}>Continue</Button>
                     </div>
                 </TabsContent>
 
                 <TabsContent value="2">
-                    <h2 className="scroll-m-20 pb-8 text-3xl font-semibold tracking-tight first:mt-0">
+                    <h2 className="scroll-m-20 pb-8 text-5xl font-semibold tracking-tight first:mt-0 leading-none">
                         Now select the ownership of the project
                     </h2>
                     <Label className="text-xs pb-[4px] block">Project Owner</Label>
@@ -128,6 +143,7 @@ export default function ProjectCreatePage() {
                     </div>
                 </TabsContent>
             </Tabs>
+            <div className="lg:block hidden bg-[url('https://img.freepik.com/free-vector/hand-drawn-illustration-people-with-ideas_23-2149164331.jpg?w=1060&t=st=1715102651~exp=1715103251~hmac=27ce7f52b918f473d487388ef43f8031b0512f5b670b41bfdfce75146e57b04c')] fixed w-full h-full top-0 right-0 z-[-1] bg-right-bottom bg-[length:auto_500px] bg-no-repeat opacity-[.5]"></div>
         </div>
     );
 }

@@ -20,6 +20,7 @@ import * as actions from "@/actions/index";
 import { Textarea } from "@/components/ui/textarea";
 import Papa from 'papaparse';
 import Header from "@/components/common/header";
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 
 const providers = [
     {
@@ -85,7 +86,6 @@ export default function ScanCreatePage(props: ScanCreatePageProps) {
                 window.location.href = result.redirectTo;
             }
         } catch (error) {
-            console.log(error)
         } finally {
             setIsLoading(false);
         }
@@ -94,13 +94,26 @@ export default function ScanCreatePage(props: ScanCreatePageProps) {
     return (
         <>
             <Header title="Create new scan" description="Enter the details to create a new scan" />
+            <div className="mb-8">
+                <Breadcrumb>
+                    <BreadcrumbList>
+                        <BreadcrumbItem>
+                            <BreadcrumbLink href={`/projects/${props.params.projectId}/scans`}>Scans</BreadcrumbLink>
+                        </BreadcrumbItem>
+                        <BreadcrumbSeparator />
+                        <BreadcrumbItem>
+                            <BreadcrumbPage>Create Scan</BreadcrumbPage>
+                        </BreadcrumbItem>
+                    </BreadcrumbList>
+                </Breadcrumb>
+            </div>
             <div className="scans_container">
-                <h3 className="text-xl text-muted-foreground pb-6 pt-6">
+                <h3 className="text-xl text-muted-foreground pb-6">
                     Create a scan (Step {tabIndex + 1} of 4)
                 </h3>
-                <Tabs className="w-[400px]" value={`${tabIndex}`}>
+                <Tabs className="max-w-[500px]" value={`${tabIndex}`}>
                     <TabsContent value="0">
-                        <h2 className="scroll-m-20 pb-8 text-3xl font-semibold tracking-tight first:mt-0">
+                        <h2 className="scroll-m-20 pb-8 text-5xl font-semibold tracking-tight first:mt-0 leading-none">
                             Let's start with a name for your scan
                         </h2>
                         <Label className="text-xs pb-[4px] block">Scan name</Label>
@@ -110,18 +123,18 @@ export default function ScanCreatePage(props: ScanCreatePageProps) {
                         </div>
                     </TabsContent>
                     <TabsContent value="1">
-                        <h2 className="scroll-m-20 pb-8 text-3xl font-semibold tracking-tight first:mt-0">
+                        <h2 className="scroll-m-20 pb-8 text-5xl font-semibold tracking-tight first:mt-0 leading-none">
                             Describe your scan
                         </h2>
                         <Label className="text-xs pb-[4px] block">Scan Description</Label>
-                        <Textarea id="description" placeholder="It's a scan ..." className="py-[24px]" onChange={(e) => setDescription(e.target.value)} value={description} />
+                        <Textarea id="description" placeholder="It's a scan ..." className="py-[12px] h-32" onChange={(e) => setDescription(e.target.value)} value={description} />
                         <div className="btn_wrap pt-8 flex gap-[12px]">
                             <Button onClick={() => setTabIndex(tabIndex + 1)} className="px-[32px] py-[24px]" disabled={description === ''}>Continue</Button>
                         </div>
                     </TabsContent>
 
                     <TabsContent value="2">
-                        <h2 className="scroll-m-20 pb-8 text-3xl font-semibold tracking-tight first:mt-0">
+                    <h2 className="scroll-m-20 pb-8 text-5xl font-semibold tracking-tight first:mt-0 leading-none">
                             Now select the cloud provider
                         </h2>
                         <Label className="text-xs pb-[4px] block">Provider</Label>
@@ -151,7 +164,7 @@ export default function ScanCreatePage(props: ScanCreatePageProps) {
                     </TabsContent>
 
                     <TabsContent value="3">
-                        <h2 className="scroll-m-20 pb-8 text-3xl font-semibold tracking-tight first:mt-0">
+                        <h2 className="scroll-m-20 pb-8 text-5xl font-semibold tracking-tight first:mt-0">
                             Provide the keys to the cloud services
                         </h2>
                         <Label className="text-xs pb-[4px] block">Upload Keys</Label>

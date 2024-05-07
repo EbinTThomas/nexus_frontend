@@ -6,6 +6,7 @@ import Header from "@/components/common/header";
 import { MdOutlineViewInAr } from "react-icons/md";
 
 import { Separator } from "@/components/ui/separator";
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 
 
 interface ScanDetailProps {
@@ -54,8 +55,24 @@ export default async function ScanDetail(props: ScanDetailProps) {
     return (
         <>
             <Header title="Scan Detail" description="Here's the scan details" />
-            <div className="flex justify-between items-center">
-                <h1 className="scroll-m-20 text-xl font-semibold tracking-tight">{scanDetail.name}</h1>
+            <div className="mb-8">
+                <Breadcrumb>
+                    <BreadcrumbList>
+                        <BreadcrumbItem>
+                            <BreadcrumbLink href={`/projects/${props.params.projectId}/scans`}>Scans</BreadcrumbLink>
+                        </BreadcrumbItem>
+                        <BreadcrumbSeparator />
+                        <BreadcrumbItem>
+                            <BreadcrumbPage>{scanDetail.name}</BreadcrumbPage>
+                        </BreadcrumbItem>
+                    </BreadcrumbList>
+                </Breadcrumb>
+            </div>
+            <div className="flex justify-between">
+                <div>
+                    <h1 className="scroll-m-20 text-xl font-semibold tracking-tight">{scanDetail.name}</h1>
+                    <p className="leading-7 mb-4 mt-2">{scanDetail.description}</p>
+                </div>
                 {
                     scanDetail.state === "pending"
                         ? <StartScanButton scanId={props.params.scanId} btnValue={"Start Scan"} />
@@ -66,7 +83,7 @@ export default async function ScanDetail(props: ScanDetailProps) {
             <Separator className="my-4" />
             <pre className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] overflow-x-auto">
                 <code className="font-mono text-sm font-semibold">
-                    {JSON.stringify(scanDetail, null, 2)}
+                    {JSON.stringify(scanDetail.keys, null, 2)}
                 </code>
             </pre>
             {

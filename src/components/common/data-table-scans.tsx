@@ -13,7 +13,7 @@ import {
     getSortedRowModel,
     useReactTable,
 } from "@tanstack/react-table"
-import { ArrowUpDown, ChevronDown, MoreHorizontal, Router } from "lucide-react"
+import { ArrowUpDown, ChevronDown } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
@@ -37,10 +37,9 @@ import {
 } from "@/components/ui/table";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { IoReload } from "react-icons/io5";
-import { LuView } from "react-icons/lu";
 import { IoAdd } from "react-icons/io5";
 import { Badge } from "../ui/badge"
+import Image from "next/image"
 
 export type Scans = {
     id: string
@@ -104,7 +103,26 @@ export const columns: ColumnDef<Scans>[] = [
                 </Button>
             )
         },
-        cell: ({ row }) => <div className="pl-4">{row.getValue("provider")}</div>,
+        cell: ({ row }) => <div className="pl-4 flex gap-2 items-center">
+            <img src={
+                row.getValue("provider") === "aws"
+                    ? "https://cdn.icon-icons.com/icons2/2407/PNG/512/aws_icon_146074.png"
+                    : row.getValue("provider") === "gcp"
+                        ? "https://banner2.cleanpng.com/20190612/vok/kisspng-cloud-computing-google-cloud-platform-cloud-storag-google-cloud-logo-png-image-free-download-searchpn-5d01a5ae4d22e9.530730771560389038316.jpg"
+                        : row.getValue("provider") === "azure"
+                        && "https://marketplace.radiantlogic.com/wp-content/uploads/bw_store_facet_images/bw_ad_azure_bw_ad_azure-900x0.png"
+            } alt="aws" width={32} height={32} />
+            <span className="font-semibold">
+                {
+                    row.getValue("provider") === "aws"
+                        ? "Amazon Web Services"
+                        : row.getValue("provider") === "gcp"
+                            ? "Google Cloud Provider"
+                            : row.getValue("provider") === "azure"
+                            && "Microsoft Azure"
+                }
+            </span>
+        </div>,
     },
     {
         accessorKey: "state",
