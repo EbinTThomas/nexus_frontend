@@ -6,6 +6,7 @@ import * as actions from '@/actions/index';
 import Link from 'next/link';
 import Image from 'next/image';
 import { FiLoader } from "react-icons/fi";
+import { Metadata } from 'next';
 
 interface FormData {
     email: string;

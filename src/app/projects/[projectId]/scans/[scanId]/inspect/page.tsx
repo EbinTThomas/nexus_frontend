@@ -8,7 +8,8 @@ import ReactFlow, {
   MarkerType,
 } from 'react-flow-renderer';
 import Dagre from '@dagrejs/dagre';
-import CustomNode from '@/components/CustomNode';
+import CustomNode from '@/components/custom-node';
+import Header from '@/components/common/header';
 
 // Initialize the graph
 const g = new Dagre.graphlib.Graph().setGraph({}).setDefaultEdgeLabel(() => ({}));
@@ -65,93 +66,78 @@ export default function BasicFlow() {
           {
             "id": "2",
             "data": {
-              "label": "IAM User"
+              "label": "User"
             },
             "type": "custom"
           },
           {
             "id": "3",
             "data": {
-              "label": "Administrator"
+              "label": "IAM Service"
             },
             "type": "custom"
           },
           {
             "id": "4",
             "data": {
-              "label": "All Services"
+              "label": "Administrator"
+            },
+            "type": "custom"
+          },
+          {
+            "id": "5",
+            "data": {
+              "label": "S3 Bucket Service"
+            },
+            "type": "custom"
+          },
+          {
+            "id": "6",
+            "data": {
+              "label": "RDS Service"
             },
             "type": "custom"
           },
           {
             "id": "7",
             "data": {
-              "label": "S3 Bucket"
-            },
-            "type": "custom"
-          },
-          {
-            "id": "8",
-            "data": {
-              "label": "Database"
-            },
-            "type": "custom"
-          },
-          {
-            "id": "9",
-            "data": {
-              "label": "Network Infrastructure"
+              "label": "EC2 Service"
             },
             "type": "custom"
           }
         ],
         "edges": [
           {
-            "id": "2",
+            "id": "1",
             "source": "1",
             "target": "2"
+          },
+          {
+            "id": "2",
+            "source": "2",
+            "target": "3",
+            "label": "IAM Access"
           },
           {
             "id": "3",
             "source": "3",
             "target": "4",
-            "label": "Gain Full Control"
+            "label": "Escalate to Administrator"
           },
           {
-            "id": "8",
-            "source": "2",
-            "target": "7",
-            "label": "Access Cloud Storage"
+            "id": "4",
+            "source": "4",
+            "target": "5"
           },
           {
-            "id": "9",
-            "source": "2",
-            "target": "8",
-            "label": "Access Database"
+            "id": "5",
+            "source": "4",
+            "target": "6"
           },
           {
-            "id": "10",
-            "source": "2",
-            "target": "9",
-            "label": "Infiltrate Network"
-          },
-          {
-            "id": "11",
-            "source": "7",
-            "target": "4",
-            "label": "Exfiltrate Sensitive Data"
-          },
-          {
-            "id": "12",
-            "source": "8",
-            "target": "4",
-            "label": "Extract Database Information"
-          },
-          {
-            "id": "13",
-            "source": "9",
-            "target": "3",
-            "label": "Escalate to Admin via Network"
+            "id": "6",
+            "source": "4",
+            "target": "7"
           }
         ]
       }
@@ -175,17 +161,20 @@ export default function BasicFlow() {
   };
 
   return (
-    <div className="h-[calc(100vh-150px)] w-[100%]">
-      <ReactFlowProvider>
-        <ReactFlow
-          nodes={nodes}
-          edges={edges}
-          nodeTypes={nodeTypes}
-          fitView
-        >
-          <Controls />
-        </ReactFlow>
-      </ReactFlowProvider>
-    </div>
+    <>
+      <Header title="Assessment Visualization" description="A Visualization of the exploited path with the assigned keys" />
+      <div className="h-[calc(100vh-150px)] w-[100%]">
+        <ReactFlowProvider>
+          <ReactFlow
+            nodes={nodes}
+            edges={edges}
+            nodeTypes={nodeTypes}
+            fitView
+          >
+            <Controls />
+          </ReactFlow>
+        </ReactFlowProvider>
+      </div>
+    </>
   );
 }

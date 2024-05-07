@@ -11,7 +11,6 @@ interface ProjectLayoutProps {
 export default function ProjectLayout(props: ProjectLayoutProps) {
     return (
         <>
-            <Header />
             <SideNav />
             <div className="pl-[304px] pt-[104px] pr-[24px] pb-[24px]">
                 {props.children}
