@@ -80,7 +80,7 @@ export default async function ScanDetail(props: ScanDetailProps) {
             {
                 scanDetail.state === "completed" &&
                 <>
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-center justify-between mt-4">
                         <h1 className="text-lg font-semibold">Assessment</h1>
                         <Link href={`/projects/${props.params.projectId}/scans/${props.params.scanId}/inspect`} className="hover:bg-accent hover:text-accent-foreground inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 px-4 py-2 gap-2">
                             <MdOutlineViewInAr />
