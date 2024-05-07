@@ -10,3 +10,4 @@ export { startScan } from "./start-scan";
 export { getScanResult } from "./get-scan-result";
 export { login } from "./auth/login";
 export { signup } from "./auth/signup";
+export { getDashboardData } from "./get-dashboard-data";
