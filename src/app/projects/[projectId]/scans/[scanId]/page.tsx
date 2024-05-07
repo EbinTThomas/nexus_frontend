@@ -63,11 +63,12 @@ export default async function ScanDetail(props: ScanDetailProps) {
                         && <StartScanButton scanId={props.params.scanId} btnValue={"Rescan"} />
                 }
             </div>
-            <code className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold">
-                {
-                    JSON.stringify(scanDetail)
-                }
-            </code>
+            <Separator className="my-4" />
+            <pre className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] overflow-x-auto">
+                <code className="font-mono text-sm font-semibold">
+                    {JSON.stringify(scanDetail, null, 2)}
+                </code>
+            </pre>
             {
                 scanDetail.state === "failed" &&
                 <>failed</>
@@ -79,7 +80,6 @@ export default async function ScanDetail(props: ScanDetailProps) {
             {
                 scanDetail.state === "completed" &&
                 <>
-                    <Separator className="my-4" />
                     <div className="flex items-center justify-between">
                         <h1 className="text-lg font-semibold">Assessment</h1>
                         <Link href={`/projects/${props.params.projectId}/scans/${props.params.scanId}/inspect`} className="hover:bg-accent hover:text-accent-foreground inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 px-4 py-2 gap-2">
