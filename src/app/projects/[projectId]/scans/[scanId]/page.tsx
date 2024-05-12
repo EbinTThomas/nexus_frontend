@@ -21,35 +21,35 @@ export default async function ScanDetail(props: ScanDetailProps) {
     let scanResult = [];
 
     if (scanDetail.state === "completed") {
-        // scanResult = await actions.getScanResult(props.params.scanId);
-        scanResult = {
-            "id": 11,
-            "scan_id": 6,
-            "assigned_permissions": ['iam:Get*', 'iam:List*', 'iam:Put*'],
-            "vulnerable_permissions": [
-                'iam:listattachedgrouppolicies',
-                'iam:listattacheduserpolicies',
-                'iam:listrolepolicies',
-                'iam:listgrouppolicies',
-                'iam:listattachedrolepolicies',
-                'iam:putrolepolicy',
-                'iam:listgroups',
-                'iam:listusers',
-                'iam:putgrouppolicy',
-                'iam:listroles',
-                'iam:listinstanceprofiles',
-                'iam:listpolicies',
-                'iam:listuserpolicies',
-                'iam:listgroupsforuser',
-                'iam:listpolicyversions',
-                'iam:putuserpolicy'
-            ],
-            "overly_permissive_services": ['PutGroupPolicy', 'PutUserPolicy'],
-            "exploitation_details": ['PutGroupPolicy', 'PutUserPolicy'],
-            "post_exploitation_activities": [],
-            "assessment_phase_details": [],
-            "summary": null
-        }
+        scanResult = await actions.getScanResult(props.params.scanId);
+        // scanResult = {
+        //     "id": 11,
+        //     "scan_id": 6,
+        //     "assigned_permissions": ['iam:Get*', 'iam:List*', 'iam:Put*'],
+        //     "vulnerable_permissions": [
+        //         'iam:listattachedgrouppolicies',
+        //         'iam:listattacheduserpolicies',
+        //         'iam:listrolepolicies',
+        //         'iam:listgrouppolicies',
+        //         'iam:listattachedrolepolicies',
+        //         'iam:putrolepolicy',
+        //         'iam:listgroups',
+        //         'iam:listusers',
+        //         'iam:putgrouppolicy',
+        //         'iam:listroles',
+        //         'iam:listinstanceprofiles',
+        //         'iam:listpolicies',
+        //         'iam:listuserpolicies',
+        //         'iam:listgroupsforuser',
+        //         'iam:listpolicyversions',
+        //         'iam:putuserpolicy'
+        //     ],
+        //     "overly_permissive_services": ['PutGroupPolicy', 'PutUserPolicy'],
+        //     "exploitation_details": ['PutGroupPolicy', 'PutUserPolicy'],
+        //     "post_exploitation_activities": [],
+        //     "assessment_phase_details": [],
+        //     "summary": null
+        // }
     }
 
     return (

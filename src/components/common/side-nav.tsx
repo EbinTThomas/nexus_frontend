@@ -15,8 +15,10 @@ import Image from "next/image";
 import { CommandDialogDemo } from "./command-dialog-demo";
 import * as actions from "@/actions/index";
 import { Button } from "../ui/button";
+import { useEffect, useState } from "react";
 
 export default function SideNav() {
+    const [userCred, setUserCred] = useState({});
     const pathname = usePathname();
     const projectId = pathname.split('/')[2];
 
@@ -39,7 +41,7 @@ export default function SideNav() {
                 {
                     "label": "Documentation",
                     "icon": <IoDocumentAttachOutline size={24} />,
-                    "path": `#`
+                    "path": `/projects/docs`
                 },
                 {
                     "label": "Projects",
@@ -64,14 +66,21 @@ export default function SideNav() {
         },
     ]
 
-    const userCred = {
-        "avatar": "/assets/images/avatar.png",
-        "name": "John Cena",
-        "email": "johncena@gmail.com"
-    }
+    const getUserAction = async () => await actions.getUser();
+
+    useEffect(() => {
+        const fetchUser = async () => {
+            try {
+                const response = await getUserAction();
+                setUserCred(response);
+            } catch (error) {
+            }
+        };
+        fetchUser();
+    }, [])
 
     return (
-        <div className="w-[280px] h-full fixed top-0 left-0 bg-[#fff] flex flex-col justify-between p-4  border-r border-[#536682]-100 z-[100]">
+        <div className="w-[280px] h-full fixed top-0 left-0 bg-[#fff] flex flex-col justify-between p-4  border-r border-[#536682]-100 z-[2]">
             <div>
                 <Image src="/assets/images/logo.svg" width={24} height={24} alt="logo" className="w-auto h-10 mb-4" />
                 <div className="pb-4 mb-5 border-b border-[#536682]-100">
@@ -106,16 +115,14 @@ export default function SideNav() {
                 </ul>
                 <div className="flex gap-2 justify-between items-center border-t border-[#536682]-100 pt-4">
                     <div className="flex gap-2 items-center">
-                        <Image
-                            src="/assets/images/avatar.png"
-                            alt="avatar"
-                            width={24}
-                            height={24}
-                            className="w-[36px] h-[36px] rounded-[0.375rem]"
-                        />
+                        <div
+                            className="w-[36px] h-[36px] rounded-[0.375rem] flex items-center justify-center bg-[#f1f1f1] text-[.875rem] font-semibold text-gray-600"
+                        >
+                            {userCred && userCred.organisation?.substring(0, 1)}
+                        </div>
                         <div>
-                            <div className="font-[600] text-[0.875rem]">{userCred.name}</div>
-                            <div className="text-[0.675rem]">{userCred.email}</div>
+                            <div className="font-[600] text-[0.875rem]">{userCred && userCred.organisation}</div>
+                            <div className="text-[0.675rem]">{userCred && userCred.email}</div>
                         </div>
                     </div>
                     <Button variant="ghost" onClick={logoutAction}>

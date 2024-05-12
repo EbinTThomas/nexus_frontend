@@ -29,7 +29,7 @@ export default async function ProjectDetailPage(props: ProjectDetailPageProps) {
                 </div>
                 <div className="p-4 bg-gray-200 rounded-[.675rem] flex-1 min-w-[200px]">
                     <div className="text-[#000] text-[.875rem] mb-4">Total Issues</div>
-                    <h3 className="scroll-m-20 text-3xl font-medium tracking-tight text-center text-[#000]">0</h3>
+                    <h3 className="scroll-m-20 text-3xl font-medium tracking-tight text-cente   r text-[#000]">0</h3>
                 </div>
             </div>
             <div className="text-lg font-semibold mt-6">{dashboardData.project.name}</div>

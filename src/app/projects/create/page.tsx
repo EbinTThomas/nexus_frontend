@@ -137,13 +137,13 @@ export default function ProjectCreatePage() {
                                         <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                                         Please wait...
                                     </>
-                                    : 'Continue'
+                                    : 'Create Project'
                             }
                         </Button>
                     </div>
                 </TabsContent>
             </Tabs>
-            <div className="lg:block hidden bg-[url('https://img.freepik.com/free-vector/hand-drawn-illustration-people-with-ideas_23-2149164331.jpg?w=1060&t=st=1715102651~exp=1715103251~hmac=27ce7f52b918f473d487388ef43f8031b0512f5b670b41bfdfce75146e57b04c')] fixed w-full h-full top-0 right-0 z-[-1] bg-right-bottom bg-[length:auto_500px] bg-no-repeat opacity-[.5]"></div>
+            <div className="lg:block hidden bg-[url('/assets/images/project.png')] fixed w-full h-full top-0 right-0 z-[-1] bg-right-bottom bg-[length:auto_500px] bg-no-repeat opacity-[.6]"></div>
         </div>
     );
 }
